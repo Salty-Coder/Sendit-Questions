@@ -1,6 +1,9 @@
 import requests
 import json
 import time
+from colorama import Fore, Style, init
+
+init(convert=True)
 
 file = open("responses.txt", "a+", encoding='utf-8')
 
@@ -19,12 +22,12 @@ else:
         question = y["question"]
 
         if question in file:
-            print("🔴Question found in list, skipping...")
+            print(f"{Fore.RED}Question found in list, skipping...{Style.RESET_ALL}")
         else:
-            print("🟢Question not found in list, adding to list...")
+            print(f"{Fore.GREEN}Question not found in list, adding to list...{Style.RESET_ALL}")
             file.write(question + "\n")
 
         time.sleep(cooldown)
 
-
-print("Ending...")
+file.close()
+print(f"{Fore.YELLOW}Ending...")
