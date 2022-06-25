@@ -6,7 +6,7 @@ from colorama import Fore, Style, init
 init(convert=True)
 
 file = open("responses.txt", "a", encoding='utf-8')
-fileR = open("responses.txt", encoding='utf-8')
+
 
 
 times = int(input("Times to test: "))
@@ -21,6 +21,9 @@ else:
     total = 0
 
     for i in range(times):
+
+        fileR = open("responses.txt", encoding='utf-8')
+        
         #the required first parameter of the 'get' method is the 'url':
         x = requests.get('https://el-gibberado.getsendit.com/1.0/provider/ama')
         y = x.json()
