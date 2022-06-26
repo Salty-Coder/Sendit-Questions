@@ -2,12 +2,16 @@ import requests
 import json
 import time
 from colorama import Fore, Style, init
+import os
+
+def cls():
+    os.system('cls' if os.name=='nt' else 'clear')
 
 init(convert=True)
 
 file = open("responses.txt", "a", encoding='utf-8')
 
-
+cls()
 
 times = int(input("Times to test: "))
 cooldown = float(input("Cooldown: ") or 0)
@@ -15,7 +19,7 @@ cooldown = float(input("Cooldown: ") or 0)
 if times < 1:
     print("Times must be greater than 0")
 else:
-
+    print("\n")
     good = 0
     bad = 0
     total = 0
@@ -23,7 +27,7 @@ else:
     for i in range(times):
 
         fileR = open("responses.txt", encoding='utf-8')
-        
+
         #the required first parameter of the 'get' method is the 'url':
         x = requests.get('https://el-gibberado.getsendit.com/1.0/provider/ama')
         y = x.json()
