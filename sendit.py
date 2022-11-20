@@ -35,35 +35,38 @@ def request():
         with open('responses.txt', 'r', encoding='utf-8') as file:
             responses = file.read().split('\n')
 
-        for i in range(times):
+        try:
+            for i in range(times):
+            
+                    x = requests.get('https://el-gibberado.getsendit.com/1.0/provider/ama')
+                    y = x.json()
 
-            x = requests.get('https://el-gibberado.getsendit.com/1.0/provider/ama')
-            y = x.json()
+                    question = y["question"]
 
-            question = y["question"]
+                    if question in responses:
+                        print(f"{Fore.RED}Question found in list, skipping...{Style.RESET_ALL}")
+                        bad = bad + 1
+                        tenbad = tenbad + 1
+                    else:
+                        print(f"{Fore.GREEN}Question not found in list, adding to list...{Style.RESET_ALL}")
+                        responses.append(question)
+                        good = good + 1
+                        tengood = tengood + 1
+                    total = total + 1
 
-            if question in responses:
-                print(f"{Fore.RED}Question found in list, skipping...{Style.RESET_ALL}")
-                bad = bad + 1
-                tenbad = tenbad + 1
-            else:
-                print(f"{Fore.GREEN}Question not found in list, adding to list...{Style.RESET_ALL}")
-                responses.append(question)
-                good = good + 1
-                tengood = tengood + 1
-            total = total + 1
+                    step = step + 1
+                    if step == 10:
+                        step = 0
+                        quotient = tengood / 10
+                        percent = quotient * 100
+                        print(f"{math.floor(percent)}% of last 10 questions were new")
+                        tengood = 0
+                        tenbad = 0
 
-            step = step + 1
-            if step == 10:
-                step = 0
-                quotient = tengood / 10
-                percent = quotient * 100
-                print(f"{math.floor(percent)}% of last 10 questions were new")
-                tengood = 0
-                tenbad = 0
-
-            #fileR.close()
-            time.sleep(cooldown)
+                    #fileR.close()
+                    time.sleep(cooldown)
+        except KeyboardInterrupt:
+            pass
         
         with open('responses.txt', 'w', encoding='utf-8') as f:
             for response in responses:
