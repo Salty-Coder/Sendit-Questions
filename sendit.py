@@ -35,11 +35,20 @@ def request():
         with open('responses.txt', 'r', encoding='utf-8') as file:
             responses = file.read().split('\n')
 
+        def writeToFile():
+            with open('responses.txt', 'w', encoding='utf-8') as f:
+                for response in responses:
+                    f.write(f"{response}\n")        
+
         try:
             for i in range(times):
             
-                    x = requests.get('https://el-gibberado.getsendit.com/1.0/provider/ama')
-                    y = x.json()
+                    try:
+                        x = requests.get('https://el-gibberado.getsendit.com/1.0/provider/ama')
+                        y = x.json()
+                    except (requests.exceptions.ConnectionError, json.decoder.JSONDecodeError):
+                        print(f"{Fore.RED}Decoding the response has failed. Sendit server is likely down...{Style.RESET_ALL}")
+                        return writeToFile()
 
                     question = y["question"]
 
@@ -68,9 +77,7 @@ def request():
         except KeyboardInterrupt:
             pass
         
-        with open('responses.txt', 'w', encoding='utf-8') as f:
-            for response in responses:
-                f.write(f"{response}\n")        
+        writeToFile()
 
 
     print("\n")
