@@ -68,7 +68,7 @@ def request():
                         step = 0
                         quotient = tengood / 10
                         percent = quotient * 100
-                        print(f"{math.floor(percent)}% of last 10 questions were new")
+                        print(f"{math.floor(percent)}% of last 10 questions were new.\n{i+1}/{times} done.")
                         tengood = 0
                         tenbad = 0
 
