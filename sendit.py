@@ -42,12 +42,12 @@ def request():
 
         try:
             for i in range(times):
-            
                     try:
                         x = requests.get('https://el-gibberado.getsendit.com/1.0/provider/ama')
                         y = x.json()
                     except (requests.exceptions.ConnectionError, json.decoder.JSONDecodeError):
                         print(f"{Fore.RED}Decoding the response has failed. Sendit server is likely down...{Style.RESET_ALL}")
+                        print("Saving...")
                         return writeToFile()
 
                     question = y["question"]
