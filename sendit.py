@@ -50,7 +50,13 @@ def request():
                         print("Saving...")
                         return writeToFile()
 
-                    question = y["question"]
+
+                    try:
+                        question = y["question"]
+                    except:
+                        print(f"{Fore.RED}An error occured reading the question.{Style.RESET_ALL}")
+                        print("Saving...")
+                        return writeToFile()
 
                     if question in responses:
                         print(f"{Fore.RED}Question found in list, skipping...{Style.RESET_ALL}")
