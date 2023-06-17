@@ -113,8 +113,8 @@ def sort():
             if iteration % 10 == 0:
                 print(f"Writing... {iteration}/{length}")
                 cls()
-            if line != "" and line != " " and line != "\n":
-                f.write(f"{line}") 
+            if line not in ["", " ", "\n"]:
+                f.write(f"{line}")
     print("Sorted!")    
 
 
